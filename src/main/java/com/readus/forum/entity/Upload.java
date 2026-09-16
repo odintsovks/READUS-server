@@ -18,9 +18,9 @@ public class Upload extends BaseEntity {
     @Column(unique = true)
     private String storedPath;
 
-    private Integer mediaType;
+    private Short mediaType;
 
-    private Integer processingStatus = 0;
+    private Short processingStatus = 0;
 
     private String previewPath;
 

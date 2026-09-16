@@ -24,7 +24,7 @@ public class Message extends BaseEntity {
 
     private String contentHtml;
 
-    private Integer moderationStatus = 0;
+    private Short moderationStatus = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

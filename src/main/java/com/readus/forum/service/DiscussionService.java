@@ -90,7 +90,7 @@ public class DiscussionService {
         message.setContentHtml(markdownProcessor.toSafeHtml(request.getContent()));
         message.setDiscussion(discussion);
         message.setUser(user);
-        message.setModerationStatus(0); // pending
+        message.setModerationStatus((short)0); // pending
 
         message = messageRepository.save(message);
 

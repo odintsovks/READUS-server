@@ -11,7 +11,7 @@
   {
     devShell.${system} = pkgs.mkShellNoCC {
       shellHook = ''
-        export JDTLS_CONFIG='cmd = {"${pkgs.jdt-language-server}/bin/jdtls"}'
+        export JDTLS_CONFIG='cmd = {"${pkgs.jdt-language-server}/bin/jdtls", "--jvm-arg=-javaagent:${pkgs.lombok}/share/java/lombok.jar"}'
       '';
       packages = with pkgs; [
         javaPackages.compiler.temurin-bin.jdk-21

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Reaction extends BaseEntity {
-    private Integer type;
+    private Short type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
