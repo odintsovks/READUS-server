@@ -10,6 +10,13 @@ spring:
       maximum-pool-size: 50
       minimum-idle: 10
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  mvc:
+    problemdetails:
+      enabled: true
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -85,6 +92,8 @@ app:
   jwt:
     secret: ${JWT_SECRET:readusForumSuperSecretKey2024With512BitsLongEnoughForHS256}
     expiration-ms: 86400000
+  oauth:
+    frontend-callback-url: ${OAUTH_FRONTEND_CALLBACK_URL:http://localhost:5173/oauth2/redirect}
   media:
     minio:
       endpoint: http://localhost:9000

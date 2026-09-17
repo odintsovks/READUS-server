@@ -10,6 +10,7 @@ import com.readus.forum.repository.UserRepository;
 import com.readus.forum.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,9 @@ public class AuthService {
     private final SessionRepository sessionRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+
+    @Value("${app.jwt.expiration-ms}")
+    private long expirationMs;
 
     @Transactional
     public JwtResponse register(RegisterRequest request) {
@@ -44,10 +48,7 @@ public class AuthService {
 
         user = userRepository.save(user);
 
-        String token = jwtService.generateToken(user.getId(), user.getEmail());
-        createSession(user, token);
-
-        return new JwtResponse(token, user.getUsername(), user.getEmail());
+        return issueTokens(user);
     }
 
     @Transactional
@@ -59,10 +60,7 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        String token = jwtService.generateToken(user.getId(), user.getEmail());
-        createSession(user, token);
-
-        return new JwtResponse(token, user.getUsername(), user.getEmail());
+        return issueTokens(user);
     }
 
     @Transactional
@@ -73,11 +71,20 @@ public class AuthService {
         }
     }
 
-    private void createSession(User user, String token) {
+    public JwtResponse issueTokens(User user) {
+        String accessToken = jwtService.generateToken(user.getId(), user.getEmail());
+        String refreshToken = UUID.randomUUID().toString();
+        createSession(user, accessToken, refreshToken);
+
+        return new JwtResponse(accessToken, refreshToken, expirationMs / 1000);
+    }
+
+    private void createSession(User user, String token, String refreshToken) {
         Session session = new Session();
         session.setUser(user);
         session.setToken(token);
-        session.setExpiresAt(Instant.now().plusSeconds(86400)); // 24 hours
+        session.setRefreshToken(refreshToken);
+        session.setExpiresAt(Instant.now().plusMillis(expirationMs));
         sessionRepository.save(session);
     }
 

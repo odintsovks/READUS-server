@@ -19,6 +19,9 @@ public class Session extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String token;
 
+    @Column(unique = true)
+    private String refreshToken;
+
     private String ipAddress;
 
     private String userAgent;

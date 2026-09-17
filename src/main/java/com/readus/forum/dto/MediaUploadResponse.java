@@ -12,6 +12,6 @@ public class MediaUploadResponse {
     private String originalName;
     private String storedPath;
     private String previewPath;
-    private Integer mediaType;
-    private Integer processingStatus;
+    private Short mediaType;
+    private Short processingStatus;
 }

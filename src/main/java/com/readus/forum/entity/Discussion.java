@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,6 +36,13 @@ public class Discussion extends BaseEntity {
     private int replyCount = 0;
 
     private int reactionCount = 0;
+
+    @Column(name = "branch_id")
+    private UUID branchId;
+
+    /** Soft delete: non-null rows are hidden from all listings and detail views. */
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -91,7 +91,7 @@ public class VideoProcessorService {
         Upload upload = uploadRepository.findById(uploadId).orElse(null);
         if (upload != null) {
             upload.setPreviewPath(previewPath);
-            upload.setProcessingStatus(1);
+            upload.setProcessingStatus((short)1);
             uploadRepository.save(upload);
         }
 

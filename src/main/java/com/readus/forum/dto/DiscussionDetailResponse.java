@@ -4,13 +4,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 public class DiscussionDetailResponse {
     private UUID id;
+    private UUID branchId;
     private String title;
     private String slug;
     private String content;
@@ -21,5 +21,7 @@ public class DiscussionDetailResponse {
     private Instant createdAt;
     private Instant updatedAt;
     private DiscussionResponse.UserInfo user;
-    private List<MessageResponse> messages;
+
+    /** Preview of the most recent message (null for discussions without messages). */
+    private MessageResponse lastMessage;
 }

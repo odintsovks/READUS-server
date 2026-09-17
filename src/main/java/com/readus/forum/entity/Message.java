@@ -41,9 +41,6 @@ public class Message extends BaseEntity {
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
     private List<Upload> uploads = new ArrayList<>();
 
-    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
-    private List<Reaction> reactions = new ArrayList<>();
-
     @UpdateTimestamp
     private Instant updatedAt;
 }

@@ -1,19 +1,26 @@
 package com.readus.forum.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
-@Data
-@AllArgsConstructor
+@Getter
 public class JwtResponse {
-    private String token;
-    private String type = "Bearer";
-    private String username;
-    private String email;
 
-    public JwtResponse(String token, String username, String email) {
-        this.token = token;
-        this.username = username;
-        this.email = email;
+    @JsonProperty("access_token")
+    private final String accessToken;
+
+    @JsonProperty("refresh_token")
+    private final String refreshToken;
+
+    @JsonProperty("expires_in")
+    private final long expiresIn;
+
+    @JsonProperty("token_type")
+    private final String tokenType = "Bearer";
+
+    public JwtResponse(String accessToken, String refreshToken, long expiresIn) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.expiresIn = expiresIn;
     }
 }

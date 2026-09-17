@@ -10,6 +10,7 @@ import java.util.UUID;
 @Builder
 public class DiscussionResponse {
     private UUID id;
+    private UUID branchId;
     private String title;
     private String slug;
     private String content;

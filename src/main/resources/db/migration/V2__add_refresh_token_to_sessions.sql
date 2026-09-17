@@ -1,0 +1,1 @@
+ALTER TABLE sessions ADD COLUMN refresh_token VARCHAR(500) UNIQUE;

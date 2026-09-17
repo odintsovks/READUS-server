@@ -48,8 +48,8 @@ public class MediaService {
         Upload upload = new Upload();
         upload.setOriginalName(file.getOriginalFilename());
         upload.setStoredPath(objectName);
-        upload.setMediaType(file.getContentType().startsWith("video/") ? 2 : 1);
-        upload.setProcessingStatus(0);
+        upload.setMediaType((short)(file.getContentType().startsWith("video/") ? 2 : 1));
+        upload.setProcessingStatus((short)0);
         upload.setFileSize(file.getSize());
 
         upload = uploadRepository.save(upload);
