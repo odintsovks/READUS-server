@@ -28,7 +28,7 @@ services:
       #- redis_data:/data
 
   minio:
-    image: alpine/minio:latest-release
+    image: elestio/minio:latest
     container_name: readus-minio
     ports:
       - "9000:9000"

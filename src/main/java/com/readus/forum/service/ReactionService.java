@@ -76,6 +76,17 @@ public class ReactionService {
 
     /** Idempotent: removing a reaction the user never made is a no-op. */
     @Transactional
+    public void removeMessageReaction(UUID userId, UUID messageId, Short type) {
+        Optional<Reaction> existing = reactionRepository
+                .findByUserIdAndTargetTypeAndMessageIdAndType(userId, TARGET_MESSAGE, messageId, type);
+        if (existing.isEmpty()) {
+            return;
+        }
+        reactionRepository.delete(existing.get());
+    }
+
+    /** Idempotent: removing a reaction the user never made is a no-op. */
+    @Transactional
     public void removeDiscussionReaction(UUID userId, UUID discussionId, Short type) {
         Optional<Reaction> existing = reactionRepository
                 .findByUserIdAndTargetTypeAndDiscussionIdAndType(userId, TARGET_DISCUSSION, discussionId, type);

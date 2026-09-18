@@ -39,4 +39,12 @@ public class ReactionController {
         reactionService.removeDiscussionReaction(userId, discussionId, reactionType);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/messages/{messageId}/reactions/{reactionType}")
+    public ResponseEntity<Void> removeMessageReaction(@PathVariable UUID messageId,
+                                                      @PathVariable Short reactionType) {
+        UUID userId = SecurityUtils.getCurrentUserId();
+        reactionService.removeMessageReaction(userId, messageId, reactionType);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -29,6 +29,9 @@ public class JwtService {
         return Jwts.builder()
                 .subject(userId.toString())
                 .claim("email", email)
+                // iat/exp have second precision: without a unique id, two tokens issued to the
+                // same user within one second would be identical and violate sessions.token UNIQUE
+                .id(UUID.randomUUID().toString())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expirationMs))
                 .signWith(getSigningKey())
